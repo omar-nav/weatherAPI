@@ -1,7 +1,7 @@
 // add an event listener to submit button
 document.getElementById("submitButton").addEventListener("click", searchWeather);
 
-let baseUrl = "http://api.apixu.com/v1/current.json?key=YOUR_URL_KEY&q=";
+let baseUrl = "http://api.apixu.com/v1/current.json?key=a189685016c040cdab3162028191406&q=";
 
 // get input value from zipcode input element
 function searchWeather(){
@@ -10,13 +10,10 @@ function searchWeather(){
     // sendAjaxGet(userUrl, displayUsers);
 }
 
-
 // use input to make a GET request to weather api using zipcode
 function sendAjaxGet(url, callback){
     let xhr = new XMLHttpRequest(); // || new ActiveXObject 
-    
     xhr.open("GET", url);
-
     xhr.onreadystatechange = function(){
         if(this.readyState===4 && this.status===200){
             let returnedObject = JSON.parse(this.response);
@@ -32,5 +29,15 @@ function sendAjaxGet(url, callback){
 
 // takes in the response we get from our request to the server and displays weather info accordingly
 function displayWeather(weatherInfo){
-    console.log(weatherInfo)
+    console.log(weatherInfo);
+    document.getElementById("result").hidden = false;
+
+    document.getElementById("loc").innerHTML=`Weather for ${weatherInfo.location.name},
+     ${weatherInfo.location.region}`;
+
+     document.getElementById("condition").innerHTML=
+     weatherInfo.current.condition.text;
+     document.getElementById("icon").src=`http:${weatherInfo.current.condition.icon}`;
+     document.getElementById("temp").innerHTML = `${weatherInfo.current.temp_f} °F`;
+     
 }
