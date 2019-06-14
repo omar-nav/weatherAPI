@@ -19,7 +19,7 @@ function sendAjaxGet(url, callback){
             let returnedObject = JSON.parse(this.response);
             callback(returnedObject);
         } else if (this.readyState===4){
-            console.log("something went wrong!")
+            displayError();
         }
     }
 
@@ -29,8 +29,9 @@ function sendAjaxGet(url, callback){
 
 // takes in the response we get from our request to the server and displays weather info accordingly
 function displayWeather(weatherInfo){
-    console.log(weatherInfo);
+    // console.log(weatherInfo);
     document.getElementById("result").hidden = false;
+    document.getElementById("error").hidden = true;
 
     document.getElementById("loc").innerHTML=`Weather for ${weatherInfo.location.name},
      ${weatherInfo.location.region}`;
@@ -40,4 +41,9 @@ function displayWeather(weatherInfo){
      document.getElementById("icon").src=`http:${weatherInfo.current.condition.icon}`;
      document.getElementById("temp").innerHTML = `${weatherInfo.current.temp_f} °F`;
      
+}
+
+function displayError() {
+  document.getElementById("result").hidden = true;
+  document.getElementById("error").hidden = false;
 }
