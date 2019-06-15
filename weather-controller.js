@@ -22,7 +22,6 @@ function sendAjaxGet(url, callback){
             displayError();
         }
     }
-
     xhr.send();
 }
 
